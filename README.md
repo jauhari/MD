@@ -19,12 +19,13 @@ Repository ini dirancang sebagai **Single Source of Truth** agar agen AI tidak m
 
 1. **Aturan Emas (Golden Rules):** AI wajib menjaga integritas data produksi, tidak pernah menjalankan query perusak tanpa izin, dan selalu membuat snapshot/backup.
 2. **Git & Rollback Disiplin:** Setiap perubahan fungsional atau visual harus dalam commit atomic yang dapat di-rollback secara instan.
-3. **No Native Browser Select / Alert:** Wajib menggunakan custom component DOM yang elegan, dilarang memakai `<select>` bawaan OS atau `alert()`/`confirm()`.
-4. **Mobile First:** Desain harus teruji rapi di viewport HP 360px tanpa horizontal scroll liar.
-5. **Sacred vs. Slop (Protokol Bedah Visual):**
+3. **Disiplin LOGS & Riwayat Versi Aplikasi:** Setiap selesai perbaikan atau penambahan fitur, wajib catat log versi rilis dan tampilkan catatan kecil versi di antarmuka aplikasi agar riwayatnya transparan.
+4. **No Native Browser Select / Alert:** Wajib menggunakan custom component DOM yang elegan, dilarang memakai `<select>` bawaan OS atau `alert()`/`confirm()`.
+5. **Mobile First:** Desain harus teruji rapi di viewport HP 360px tanpa horizontal scroll liar.
+6. **Sacred vs. Slop (Protokol Bedah Visual):**
    - **SACRED (Haram disentuh):** State (`useState`), effect (`useEffect`), API fetch, event handler logic, routing, dan validasi data tidak boleh dirusak saat memoles tampilan.
    - **SLOP (Upgrade agresif):** CSS, styling tokens, typography scale, padding/margin, dan micro-interactions ditingkatkan ke standar premium.
-6. **Pencegahan AI Drift (Drift Rejection):** Menolak secara tegas kemunduran AI ke pola template murahan (gradien ungu-biru generik, glassmorphism berlebihan, transisi `ease` kaku, dan placeholder palsu).
+7. **Pencegahan AI Drift (Drift Rejection):** Menolak secara tegas kemunduran AI ke pola template murahan (gradien ungu-biru generik, glassmorphism berlebihan, transisi `ease` kaku, dan placeholder palsu).
 
 ---
 

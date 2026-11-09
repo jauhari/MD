@@ -11,11 +11,12 @@
 
 1. **Tidak ada penghapusan tanpa backup.** File, folder, tabel, kolom, baris, bucket, branch — semuanya.
 2. **Tidak ada perubahan yang tidak bisa di-rollback.** Setiap perubahan harus punya jalan kembali.
-3. **Tidak ada jejak AI di server produksi.**
-4. **Tidak ada komponen UI bawaan browser.** (alert, confirm, prompt, select, date picker, validasi bawaan, dll.)
-5. **Mobile first.** Desain dan CSS dimulai dari layar HP.
-6. **Jangan bilang "selesai" sebelum diverifikasi.** Jalankan, buka, tes — baru lapor.
-7. **Ragu = tanya dulu.** Terutama untuk aksi yang destruktif, menyentuh produksi, atau mengubah data user.
+3. **Catat riwayat & versi rilis (LOGS).** Setiap selesai memperbaiki atau menambah fitur, wajib catat versi kode dan rangkuman perubahan di LOGS/CHANGELOG serta sematkan catatan kecil versi di dalam aplikasinya agar history selalu terlacak.
+4. **Tidak ada jejak AI di server produksi.**
+5. **Tidak ada komponen UI bawaan browser.** (alert, confirm, prompt, select, date picker, validasi bawaan, dll.)
+6. **Mobile first.** Desain dan CSS dimulai dari layar HP.
+7. **Jangan bilang "selesai" sebelum diverifikasi.** Jalankan, buka, tes — baru lapor.
+8. **Ragu = tanya dulu.** Terutama untuk aksi yang destruktif, menyentuh produksi, atau mengubah data user.
 
 ---
 
@@ -83,6 +84,17 @@
 - Rollback kode: arahkan `current` ke rilis sebelumnya, reload service.
 - Rollback data: restore dari backup yang dibuat **tepat sebelum deploy**.
 - Fitur besar/berisiko dibungkus **feature flag** agar bisa dimatikan tanpa deploy ulang.
+
+### 2.4 Disiplin LOGS Versi & Catatan Rilis Aplikasi (In-App History)
+Setiap selesai memperbaiki bug, menambah fitur baru, atau mengubah tampilan/alur:
+1. **Pencatatan LOGS / CHANGELOG:**
+   - Wajib mencatat nomor versi kode rilis (misal `v0.79.4`, `v1.2.0`, atau `Asset v30`), tanggal update, dan rincian perubahan (apa yang diperbaiki, apa yang ditambah).
+   - Tulis dalam berkas log proyek (seperti `CHANGELOG.md`, `LOGS.md`, atau `HANDOFF.md`).
+2. **Catatan Kecil Versi di Dalam Aplikasi (In-App Version & History):**
+   - Aplikasi wajib menampilkan penanda versi kode yang sedang aktif (misalnya badge versi di footer, sudut antarmuka admin, atau modal "Riwayat Versi / Apa yang Baru").
+   - Pengguna, panitia, atau pengembang berikutnya harus bisa mengetahui secara pasti versi mana yang sedang berjalan di layar dan apa saja riwayat perubahannya tanpa perlu membuka log server atau commit git.
+3. **Bump Cache / Asset Version:**
+   - Setiap rilis baru, pastikan versi aset (CSS/JS) dinaikkan untuk mencegah pengguna terjebak cache lama browser.
 
 ---
 
@@ -308,7 +320,7 @@ Sebelum menulis kode tampilan baru:
 3. **Buat backup/checkpoint** sebelum aksi berisiko, dan sebutkan lokasinya.
 4. **Satu tugas, satu fokus.** Jangan melebar ke perubahan yang tidak diminta.
 5. **Verifikasi sendiri** hasil kerja (jalankan, buka di browser, cek di 360px) sebelum melapor.
-6. **Lapor jujur:** apa yang diubah, file mana, apa yang belum dites, risiko yang diketahui.
+6. **Catat log versi & lapor jujur:** Catat log versi kode serta pembaruan riil di aplikasi/changelog, laporkan apa yang diubah, file mana, apa yang belum dites, risiko yang diketahui.
 7. Jika gagal 2× dengan pendekatan yang sama → berhenti, jelaskan masalahnya, tanya arah.
 8. Jangan mengarang: kalau tidak tahu struktur DB, endpoint, atau nama fungsi — cek atau tanya.
 
