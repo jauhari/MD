@@ -215,6 +215,36 @@ grep -rniE "console\.log|var_dump|dd\(|debugger|AI generated|lorem ipsum" src/ a
 - Setiap elemen harus punya alasan ada.
 - Empty state, loading state, dan error state didesain — bukan dibiarkan kosong.
 
+### 7.1 Aturan Sakral vs. Slop (Sacred vs. Slop)
+Saat diminta memodernkan, merapikan, atau mendesain ulang tampilan antarmuka (UI redesign):
+- **SACRED (Haram disentuh sama sekali):**
+  - State declaration & updates (`useState`, `useReducer`, store dsb.)
+  - Side effects & hooks lifecycle (`useEffect`, `useCallback`, `useMemo`)
+  - API calls & data fetching (`fetch`, `axios`, SWR, TanStack Query, GraphQL, RPC)
+  - Logika event handler (fungsi di dalam `onClick`, `onSubmit`, `onChange` — logika bisnis apa yang terjadi, bukan class CSS-nya)
+  - Conditional rendering & routing logic
+  - Form validation & submit payload logic
+  - Transformasi data (`.map`, `.filter`, `.reduce`)
+  - Error handling & boundaries (`try/catch`)
+- **SLOP (Upgrade Agresif):**
+  - Nama class CSS, Tailwind utility classes, file CSS/SCSS
+  - Design tokens: nilai warna (hex, hsl), font family, font size, border-radius
+  - Spacing: padding, margin, gap
+  - Layout structure: konfigurasi flexbox/grid
+  - Shadow, depth layering, dan micro-interaction physics
+
+### 7.2 Pencegahan AI Drift (Drift Rejection)
+Model AI secara alami cenderung mengalami "kemunduran ke rata-rata" (*drift to the mean* / kembali ke layout klise template murahan). Wajib tolak (*reject*) dan reset jika kode mulai mengarah ke pola berikut:
+- **Tolak Gradien Ungu-Biru & Glassmorphism di Semua Tempat:** Gunakan palet ketat dengan kontras tinggi, background solid/tekstur bersih, bukan efek blur kabur murahan.
+- **Tolak `transition: all 0.3s ease` atau keyword `linear`:** Gunakan timing spesifik, cubic-bezier terukur, atau spring physics (ala Apple/Linear), dan selalu hormati `prefers-reduced-motion`.
+- **Tolak Penghapusan Konten Fungsional demi "Estetika":** Jangan pernah menghapus form, filter, atau tombol penting hanya agar layout terlihat "clean" atau "minimalis".
+- **Tolak Placeholder & Copy Halu:** Dilarang menggunakan "Lorem ipsum", "Solusi AI Revolusioner", atau rating statistik karangan. Gunakan konteks nyata.
+
+### 7.3 Protokol Desain: Ekstraksi Sebelum Menulis Kode (The Design Read)
+Sebelum menulis kode tampilan baru:
+1. **Ekstrak Sinyal Desain:** Tentukan focal element, mode warna (dark/light), rasio tipografi (kontras tegas antara heading dan body), serta batas warna.
+2. **Quality Gate:** Jangan mulai menulis kode styling jika hierarki dan struktur spasial belum dipahami.
+
 ---
 
 ## 8. Anti AI Slop — Kode
@@ -308,6 +338,16 @@ Taruh `AGENTS.md` di **root project**. Untuk tools yang tidak membaca `AGENTS.md
 | ChatGPT / Claude / Gemini versi web (tanpa akses folder) | — | Tempel isi file ini ke *Project Instructions* / *Custom Instructions*, atau unggah sebagai file project |
 
 Monorepo: boleh ada `AGENTS.md` tambahan di subfolder; aturan subfolder **menambah**, tidak boleh melonggarkan aturan root (§0, §1, §2, §4 tetap berlaku).
+
+### Ekstensi Skills (`skills/`)
+Untuk tugas-tugas visual dan interaktif tingkat lanjut (Awwwards-tier), gunakan modul skill yang tersedia di folder `skills/`:
+- `skills/visual-redesign`: Bedah estetika CSS tanpa merusak logika JavaScript.
+- `skills/pixel-perfect`: Replikasi antarmuka presisi tinggi dari tangkapan layar/desain.
+- `skills/awwwards-hero`: Pembuatan hero section berdampak tinggi dengan tipografi ekspresif.
+- `skills/awwwards-sections`: Layout section, bento grid, pricing, dan footer berkelas tinggi.
+- `skills/awwwards-motion`: Koreografi animasi, scroll sequencing, dan micro-interaction fisika.
+- `skills/brandkit-gen`: Pembangkit sistem identitas dan palet merek sebelum pembuatan antarmuka.
+- `skills/imagegen-frontend`: Panduan pembuatan aset visual dan fotografi editorial untuk web.
 
 ---
 
